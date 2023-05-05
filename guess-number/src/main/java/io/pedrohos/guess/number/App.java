@@ -32,19 +32,19 @@ public class App extends Application {
 	
 	private int lineStart = 0;
 	private int lineMax = 10;
+	private int randomNumber = getRandomNumber(randomNumberMin, randomNumberMax);
 	
 	@Override
 	public void start(Stage palco) throws Exception { // 3
 
 		GridPane gridPane = new GridPane();
 
-		int randomNumber = getRandomNumber(randomNumberMin, randomNumberMax);
 		
 		for (int colunm = colunmStart; colunm < colunmMax; colunm++) {
 			for (int line = lineStart; line < lineMax; line++) {
 				
 				if (randomNumber == count) {
-					child = new TextField("...");
+					child = new TextField();
 					gridPane.add(child, line, colunm);
 					
 				} else {
@@ -74,15 +74,12 @@ public class App extends Application {
 	            	colunmMax = colunmMax + 1;
 	            	randomNumberMin = randomNumberMin + 10;
 	            	randomNumberMax = randomNumberMax + 10;
-	            	
-	            	int randomNumber = getRandomNumber(randomNumberMin, randomNumberMax);
-	            	
-	            	
+	            	randomNumber = getRandomNumber(randomNumberMin, randomNumberMax);
 	            	
 	            	for (int colunm = colunmStart; colunm < colunmMax; colunm++) {
 	        			for (int line = lineStart; line < lineMax; line++) {
 	        				if (randomNumber == count) {
-	        					child = new TextField("...");
+	        					child = new TextField();
 	        					gridPane.add(child, line, colunm);
 	
 	        				} else {
@@ -93,7 +90,7 @@ public class App extends Application {
 	        		}
 	            	
 	            } else { 
-	            	gridPane.add(new Label("ERRRRRROOOOUUUUU!!!!!"), 0, colunmMax);
+	            	System.out.println("ERROU....");
 	            }
             	
             }
