@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Random;
 
 import javafx.application.Application;
-import javafx.fxml.FXML;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -20,22 +21,32 @@ public class App extends Application {
 
 	private TextField child;
 	
+	private int randomNumberMin = 1;
+	private int randomNumberMax = 10;
+	
+	private int fase = 1;
+	private int count = 1;
+	
+	private int colunmStart = 0;
+	private int colunmMax = 1;
+	
+	private int lineStart = 0;
+	private int lineMax = 10;
+	
 	@Override
 	public void start(Stage palco) throws Exception { // 3
 
 		GridPane gridPane = new GridPane();
 
-		List<Integer> randomNumbers = getRandomNumbers(1, 10, 1);
-
-		int count = 1;
-
-		for (int colunm = 0; colunm < 1; colunm++) {
-			for (int line = 0; line < 10; line++) {
-				if (randomNumbers.contains(count)) {
-
-					child = new TextField("?");
+		int randomNumber = getRandomNumber(randomNumberMin, randomNumberMax);
+		
+		for (int colunm = colunmStart; colunm < colunmMax; colunm++) {
+			for (int line = lineStart; line < lineMax; line++) {
+				
+				if (randomNumber == count) {
+					child = new TextField("...");
 					gridPane.add(child, line, colunm);
-
+					
 				} else {
 					gridPane.add(new Label(count + ""), line, colunm);
 				}
@@ -48,14 +59,48 @@ public class App extends Application {
 		gridPane.setHgap(20);
 
 		Button botao2 = new Button("Clique em mim!");
+		gridPane.add(botao2, 0, 10);
 		
-		botao2.setOnAction(event -> {
-			System.out.println(child.getText());
-		});
+		botao2.setOnAction(new EventHandler<ActionEvent>() {
+
+            public void handle(ActionEvent evento) {
+               
+            	Integer numberGuess = Integer.parseInt(child.getText());
+            	
+            	if (numberGuess == randomNumber) {
+            	
+	            	fase = fase + 1;
+	            	colunmStart = colunmStart + 1;
+	            	colunmMax = colunmMax + 1;
+	            	randomNumberMin = randomNumberMin + 10;
+	            	randomNumberMax = randomNumberMax + 10;
+	            	
+	            	int randomNumber = getRandomNumber(randomNumberMin, randomNumberMax);
+	            	
+	            	
+	            	
+	            	for (int colunm = colunmStart; colunm < colunmMax; colunm++) {
+	        			for (int line = lineStart; line < lineMax; line++) {
+	        				if (randomNumber == count) {
+	        					child = new TextField("...");
+	        					gridPane.add(child, line, colunm);
+	
+	        				} else {
+	        					gridPane.add(new Label(count + ""), line, colunm);
+	        				}
+	        				count++;
+	        			}
+	        		}
+	            	
+	            } else { 
+	            	gridPane.add(new Label("ERRRRRROOOOUUUUU!!!!!"), 0, colunmMax);
+	            }
+            	
+            }
+        });
 		
-		gridPane.add(botao2, 0, count + 1);
 		
-		Scene cena = new Scene(gridPane, 500, 500); // 8
+		Scene cena = new Scene(gridPane, 600, 800); // 8
 		palco.setTitle("Qual o número?..."); // 9
 		palco.setScene(cena); // 10
 		palco.show(); // 11
