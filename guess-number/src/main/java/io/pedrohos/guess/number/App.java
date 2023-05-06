@@ -7,11 +7,23 @@ import java.util.Random;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -19,7 +31,10 @@ import javafx.stage.Stage;
  */
 public class App extends Application {
 
-	private TextField child;
+	private static final int WIDTH = 1000;
+    private static final int HEIGHT = 1000;
+    
+	private TextField textField;
 	
 	private int randomNumberMin = 1;
 	private int randomNumberMax = 10;
@@ -27,92 +42,128 @@ public class App extends Application {
 	private int fase = 1;
 	private int count = 1;
 	
-	private int colunmStart = 0;
-	private int colunmMax = 1;
+	private int rowStart = 1;
+	private int rowMax = 2;
 	
-	private int lineStart = 0;
-	private int lineMax = 10;
+	private int columnStart = 1;
+	private int columnMax = columnStart + 10;
+	
 	private int randomNumber = getRandomNumber(randomNumberMin, randomNumberMax);
 	
 	@Override
-	public void start(Stage palco) throws Exception { // 3
+	public void start(Stage palco) throws Exception {
 
 		GridPane gridPane = new GridPane();
+		buildLines(gridPane);
 
+		gridPane.setVgap(30);
+		gridPane.setHgap(50);
+
+		Button confirmBtn = new Button("Confirmar");
 		
-		for (int colunm = colunmStart; colunm < colunmMax; colunm++) {
-			for (int line = lineStart; line < lineMax; line++) {
+		
+		StackPane stackPane = new StackPane();
+		stackPane.setBackground(new Background(
+                new BackgroundImage(
+                        new Image(getClass().getResource("/images/graveyard.png").toString()),
+                        BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT,
+                        new BackgroundPosition(Side.LEFT, 0, true, Side.BOTTOM, 0, true),
+                        new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, true, true, false, true)
+                ))
+        );
+		
+		VBox vBox = new VBox();
+        vBox.setSpacing(5); 
+        vBox.setAlignment(Pos.CENTER); 
+        
+        vBox.setTranslateX(10);
+        vBox.setTranslateY(20);
+        
+        HBox hBox = new HBox();
+        hBox.setSpacing(5);
+        hBox.setAlignment(Pos.CENTER);
+
+        hBox.setTranslateX(10);
+        hBox.setTranslateY(20);
+        
+        hBox.getChildren().addAll(confirmBtn);
+        
+        vBox.getChildren().addAll(title("Adivinhe o número!"), gridPane, hBox);
+        
+        stackPane.getChildren().add(vBox);
+        
+        confirmBtn.setOnAction(new EventHandler<ActionEvent>() {
+        	
+        	public void handle(ActionEvent evento) {
+        		
+        		Integer numberGuess = Integer.parseInt(textField.getText());
+        		
+        		if (numberGuess == randomNumber) {
+        			
+        			if(fase == 10) {
+        				return; //add msg de parabénssssss!
+        			}
+        			
+        			fase = fase + 1;
+        			rowStart = rowStart + 1;
+        			rowMax = rowMax + 1;
+        			randomNumberMin = randomNumberMin + 10;
+        			randomNumberMax = randomNumberMax + 10;
+        			randomNumber = getRandomNumber(randomNumberMin, randomNumberMax);
+        			
+        			buildLines(gridPane);
+        			
+        		} else { 
+        			System.out.println("ERROU....");
+        		}
+        		
+        	}
+        });
+        
+        Scene cena = new Scene(stackPane, HEIGHT, WIDTH);
+		cena.getStylesheets().add("guess-number.css");
+		palco.setTitle("Qual o número?...");
+		palco.setScene(cena);
+		palco.show();
+
+	}
+	
+	private Label title(String name) {
+            var newLblTitle = new Label(name);
+            newLblTitle.setTextFill(Color.WHITE);
+            newLblTitle.setStyle("-fx-font: 20 arial;");
+            return newLblTitle;
+	}
+
+	private void buildLines(GridPane gridPane) {
+		
+		for (int row = rowStart; row < rowMax; row++) {
+			for (int colunm = columnStart; colunm < columnMax; colunm++) {
 				
 				if (randomNumber == count) {
-					child = new TextField();
-					gridPane.add(child, line, colunm);
+					textField = new TextField();
+					textField.setStyle("-fx-font: 20 arial;");
+					textField.setPrefWidth(50);
+					gridPane.add(textField, colunm, row);
 					
 				} else {
-					gridPane.add(new Label(count + ""), line, colunm);
+					Label label = new Label(count + "");
+					label.setTextFill(Color.WHITE);
+					label.setStyle("-fx-font: 20 arial;");
+					gridPane.add(label, colunm, row);
 				}
+				
 				count++;
 			}
 		}
-
-		// 2
-		gridPane.setVgap(20);
-		gridPane.setHgap(20);
-
-		Button botao2 = new Button("Clique em mim!");
-		gridPane.add(botao2, 0, 10);
-		
-		botao2.setOnAction(new EventHandler<ActionEvent>() {
-
-            public void handle(ActionEvent evento) {
-               
-            	Integer numberGuess = Integer.parseInt(child.getText());
-            	
-            	if (numberGuess == randomNumber) {
-            	
-	            	fase = fase + 1;
-	            	colunmStart = colunmStart + 1;
-	            	colunmMax = colunmMax + 1;
-	            	randomNumberMin = randomNumberMin + 10;
-	            	randomNumberMax = randomNumberMax + 10;
-	            	randomNumber = getRandomNumber(randomNumberMin, randomNumberMax);
-	            	
-	            	for (int colunm = colunmStart; colunm < colunmMax; colunm++) {
-	        			for (int line = lineStart; line < lineMax; line++) {
-	        				if (randomNumber == count) {
-	        					child = new TextField();
-	        					gridPane.add(child, line, colunm);
-	
-	        				} else {
-	        					gridPane.add(new Label(count + ""), line, colunm);
-	        				}
-	        				count++;
-	        			}
-	        		}
-	            	
-	            } else { 
-	            	System.out.println("ERROU....");
-	            }
-            	
-            }
-        });
-		
-		
-		Scene cena = new Scene(gridPane, 600, 800); // 8
-		palco.setTitle("Qual o número?..."); // 9
-		palco.setScene(cena); // 10
-		palco.show(); // 11
-
 	}
 
 	public List<Integer> getRandomNumbers(int min, int max, int qnt) {
-
 		List<Integer> numbers = new ArrayList<>();
-
 		while (qnt != 0) {
 			numbers.add(getRandomNumber(min, max));
 			qnt--;
 		}
-
 		return numbers;
 	}
 

@@ -28,5 +28,15 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/home/pesilva/.m2/repository/org/openjfx/javafx-media/20/javafx-media-20-linux.jar" sourcepath="/home/pesilva/.m2/repository/org/openjfx/javafx-media/20/javafx-media-20-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="org.openjfx"/>
+			<attribute name="maven.artifactId" value="javafx-media"/>
+			<attribute name="maven.version" value="20"/>
+			<attribute name="maven.classifier" value="linux"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
