@@ -8,3 +8,7 @@
 	-fx-background-insets: 0, 1, 2, 3, 0;
 	-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
 }
+
+.label {
+	-fx-font: 20 arial;
+}
