@@ -22,6 +22,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -49,7 +50,7 @@ public class App extends Application {
 	private int randomNumber = getRandomNumber(randomNumberMin, randomNumberMax);
 	
 	@Override
-	public void start(Stage palco) throws Exception {
+	public void start(Stage stage) throws Exception {
 
 		GridPane gridPane = new GridPane();
 		buildLines(gridPane);
@@ -91,24 +92,10 @@ public class App extends Application {
         stackPane.getChildren().add(vBox);
         
         restartBtn.setOnAction(event -> {
-        	textField = null;
-        	
-        	randomNumberMin = 1;
-        	randomNumberMax = 10;
-        	
-        	fase = 1;
-        	count = 1;
-        	
-        	rowStart = 1;
-        	rowMax = 2;
-        	
-        	columnStart = 1;
-        	columnMax = columnStart + 10;
-        	
-        	randomNumber = getRandomNumber(randomNumberMin, randomNumberMax);
+        	restartValues();
         	
         	try {
-				start(palco);
+				start(stage);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -122,18 +109,18 @@ public class App extends Application {
 			if (numberGuess == randomNumber) {
 				
 				if(fase == 10) {
-					return; //add msg de parabénssssss!
+					buildSucessBox(stage);
+				} else {
+				
+					fase = fase + 1;
+					rowStart = rowStart + 1;
+					rowMax = rowMax + 1;
+					randomNumberMin = randomNumberMin + 10;
+					randomNumberMax = randomNumberMax + 10;
+					randomNumber = getRandomNumber(randomNumberMin, randomNumberMax);
+					
+					buildLines(gridPane);
 				}
-				
-				fase = fase + 1;
-				rowStart = rowStart + 1;
-				rowMax = rowMax + 1;
-				randomNumberMin = randomNumberMin + 10;
-				randomNumberMax = randomNumberMax + 10;
-				randomNumber = getRandomNumber(randomNumberMin, randomNumberMax);
-				
-				buildLines(gridPane);
-				
 			} else { 
 				System.out.println("ERROU....");
 			}
@@ -142,10 +129,55 @@ public class App extends Application {
         
         Scene cena = new Scene(stackPane, HEIGHT, WIDTH);
 		cena.getStylesheets().add("guess-number.css");
-		palco.setTitle("Qual o número?...");
-		palco.setScene(cena);
-		palco.show();
+		stage.setTitle("Qual o número?...");
+		stage.setScene(cena);
+		stage.show();
 
+	}
+
+	private void buildSucessBox(Stage stage) {
+		
+		Label secondLabel = new Label("Parabéns! Você concluiu!");
+
+		StackPane secondaryLayout = new StackPane();
+		secondaryLayout.getChildren().add(secondLabel);
+
+		Scene secondScene = new Scene(secondaryLayout, 230, 100);
+		
+		 // New window (Stage)
+		Stage newWindow = new Stage();
+		newWindow.setTitle("Second Stage");
+		newWindow.setScene(secondScene);
+
+		// Specifies the modality for new window.
+		newWindow.initModality(Modality.WINDOW_MODAL);
+
+		// Specifies the owner Window (parent) for new window
+		newWindow.initOwner(stage);
+
+		// Set position of second window, related to primary window.
+		newWindow.setX(stage.getX() + 200);
+		newWindow.setY(stage.getY() + 100);
+
+		newWindow.show();
+	}
+
+	private void restartValues() {
+		textField = null;
+		
+		randomNumberMin = 1;
+		randomNumberMax = 10;
+		
+		fase = 1;
+		count = 1;
+		
+		rowStart = 1;
+		rowMax = 2;
+		
+		columnStart = 1;
+		columnMax = columnStart + 10;
+		
+		randomNumber = getRandomNumber(randomNumberMin, randomNumberMax);
 	}
 	
 	private Label title(String name) {
