@@ -1,14 +1,34 @@
+.root {
+  -fx-font-size: 20pt ;
+  /* -fx-background-color: rgb(255, 255, 255); */
+  -fx-font-family: "Roboto Mono";
+}
+
 .button, .toggle-button, .combo-box {
 	-fx-text-fill: purple;
-	-fx-font-weight: bold;
 	-fx-background-radius: 30;
 	-fx-background-insets: 0, 1, 2, 3, 0;
 	-fx-background-color: white;
 	-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
 	-fx-background-insets: 0, 1, 2, 3, 0;
 	-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+	-fx-pref-width: 200px;
 }
 
-.label {
-	-fx-font: 20 arial;
+.text-field {
+    -fx-background-color: -fx-text-box-border, -fx-background ;
+    -fx-background-insets: 0, 0 0 1 0 ;
+    -fx-background-radius: 0 ;
 }
+.text-field:focused {
+    -fx-background-color: -fx-focus-color, -fx-background ;
+}
+
+.number-border {
+	-fx-border-color: black;
+}
+
+.number-label { 
+        -fx-background-color:white; 
+        -fx-background-radius: 30;
+     }
