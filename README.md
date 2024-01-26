@@ -21,6 +21,7 @@ To build ssl-handshake-debugger run:
 This will build the project.
 
 To run the built artifact, run:
-   java -jar target/guess-number-0.0.1-SNAPSHOT.jar 
+
+    java -jar target/guess-number-0.0.1-SNAPSHOT.jar 
 
 ---
