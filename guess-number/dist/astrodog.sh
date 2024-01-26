@@ -1,0 +1,1 @@
+java -jar guess-number-0.0.2.jar

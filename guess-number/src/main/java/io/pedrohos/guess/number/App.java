@@ -60,8 +60,12 @@ public class App extends Application {
 		stage.setTitle(TITLE);
 		stage.setMaximized(true);
 		
-		Button newGame = new Button("Jogar");
-		Button credits = new Button("Créditos");
+		Button newGame = new Button("JOGAR");
+		Button credits = new Button("CRÉDITOS");
+		
+		credits.setOnAction(evento -> {
+			createAlert(stage, "/images/creditos.gif");
+		});
 		
 		VBox caixaVertical = new VBox();
         caixaVertical.setSpacing(5);
