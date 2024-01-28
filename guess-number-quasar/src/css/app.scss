@@ -1,1 +1,16 @@
-// app global css in SCSS form
+body {
+  background-color: #170e39;
+  text-transform: uppercase;
+}
+
+.btn-box {
+  display: flex;
+  flex-wrap: wrap;
+  width: 200px;
+  gap: 10px;
+}
+
+.btn {
+  row-gap: 10px;
+  width: 200px;
+}
