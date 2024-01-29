@@ -10,7 +10,7 @@
             color="primary"
             label="Jogar"
             size="xl"
-            to="/levels/1"
+            to="game/levels/1"
           />
         </div>
       </div>

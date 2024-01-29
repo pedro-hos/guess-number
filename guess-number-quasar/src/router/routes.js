@@ -15,7 +15,7 @@ const routes = [
     children: [
       { path: "", component: () => import("pages/GamePage.vue") },
       {
-        path: "/levels/:level",
+        path: "levels/:level",
         component: () => import("pages/LevelsPage.vue"),
       },
     ],

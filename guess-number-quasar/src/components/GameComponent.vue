@@ -46,7 +46,7 @@
           color="warning"
           label="Resetar"
           size="xl"
-          to="/levels/1"
+          to="game/levels/1"
         />
       </div>
     </div>
@@ -62,7 +62,7 @@ export default {
       type: Number,
     },
   },
-  setup(props) {
+  setup(props, context) {
     const number = ref("");
     const lines = ref([]);
 
@@ -75,6 +75,7 @@ export default {
     let randomNumber;
 
     const verifyValue = () => {
+      context.emit("level", 2);
       if (number.value == randomNumber) {
         if (round == 10) console.log("acabou");
         else {
@@ -140,6 +141,7 @@ export default {
       lines,
       verifyValue,
     };
+    emits: ["level"];
   },
 };
 </script>
