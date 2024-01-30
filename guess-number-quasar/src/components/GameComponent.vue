@@ -17,10 +17,10 @@
           filled
           color="teal"
           dense
+          type="number"
           bg-color="primary"
           v-if="col == '?'"
           v-model="number"
-          :id="rowIndex"
         />
         <span v-if="col != '?'">{{ col }}</span>
       </div>
@@ -46,7 +46,7 @@
           color="warning"
           label="Resetar"
           size="xl"
-          to="game/levels/1"
+          to="/"
         />
       </div>
     </div>
@@ -57,30 +57,30 @@
 import { ref, onMounted } from "vue";
 export default {
   name: "GameComponent",
-  props: {
-    level: {
-      type: Number,
-    },
-  },
+  emits: ["changelevel"],
+
   setup(props, context) {
     const number = ref("");
     const lines = ref([]);
 
     let colMin = 1;
     let colMax = colMin + 10;
-
     let rowMin = 1;
     let rowMax = 2;
     let round = 1;
     let randomNumber;
 
     const verifyValue = () => {
-      context.emit("level", 2);
       if (number.value == randomNumber) {
-        if (round == 10) console.log("acabou");
-        else {
+        if (round == 10) {
+          context.emit("changelevel");
+        } else {
           let index = lines.value[lines.value.length - 1].indexOf("?");
           lines.value[lines.value.length - 1][index] = number.value;
+
+          if (checkLevel()) {
+            context.emit("changelevel");
+          }
 
           number.value = "";
           round++;
@@ -92,6 +92,10 @@ export default {
       } else {
         alert("Egua");
       }
+    };
+
+    const checkLevel = () => {
+      return round == 1 || round == 3 || round == 7 ? true : false;
     };
 
     const randomNumbers = (min, max) => {
@@ -115,24 +119,7 @@ export default {
       }
     };
 
-    const getMaxRowByLevel = () => {
-      if (props.level == 1) {
-        round = 1;
-        rowMax = 2;
-      } else if (props.level == 2) {
-        round = 2;
-        rowMax = 3;
-      } else if (props.level == 3) {
-        round = 4;
-        rowMax = 5;
-      } else if (props.level == 4) {
-        round = 8;
-        rowMax = 9;
-      }
-    };
-
     onMounted(() => {
-      getMaxRowByLevel();
       buildLines();
     });
 

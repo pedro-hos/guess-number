@@ -1,10 +1,34 @@
 <template>
-  <q-page class="">
+  <q-page>
     <div class="q-pa">
-      <KeepAlive>
-        <component :is="current" v-bind:level="level"></component>
+      <KeepAlive exclude="LevelComponent">
+        <component
+          :is="current"
+          v-bind:level="level"
+          @changelevel="levelUp"
+        ></component>
       </KeepAlive>
-      <q-btn @click="changeComponent" label="TESTE" />
+
+      <q-btn
+        v-if="current == 'LevelComponent' && level < 5"
+        class="btn"
+        outline
+        rounded
+        color="primary"
+        label="Vamos nessa"
+        size="xl"
+        @click="changeComponent"
+      />
+      <q-btn
+        v-if="current == 'LevelComponent' && level == 5"
+        class="btn"
+        outline
+        rounded
+        color="primary"
+        label="Finalizar"
+        size="xl"
+        to="/"
+      />
     </div>
   </q-page>
 </template>
@@ -12,6 +36,8 @@
 <script>
 import GameComponent from "components/GameComponent.vue";
 import LevelComponent from "components/LevelComponent.vue";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 
 export default {
   name: "GamePage",
@@ -20,21 +46,27 @@ export default {
     LevelComponent,
   },
 
-  data() {
-    return {
-      current: "GameComponent",
-      level: 1,
-    };
-  },
-
-  methods: {
-    changeComponent() {
-      this.current =
-        this.current == "LevelComponent" ? "GameComponent" : "LevelComponent";
-    },
-  },
   setup() {
-    return {};
+    const current = ref("LevelComponent");
+    const level = ref(1);
+    const router = useRouter();
+
+    const changeComponent = () => {
+      current.value =
+        current.value == "LevelComponent" ? "GameComponent" : "LevelComponent";
+    };
+
+    const levelUp = () => {
+      level.value++;
+      changeComponent();
+    };
+
+    return {
+      current,
+      level,
+      changeComponent,
+      levelUp,
+    };
   },
 };
 </script>

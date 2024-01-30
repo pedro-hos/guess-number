@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <div color="">Teste</div>
+    <div color="">Creditos</div>
   </q-page>
 </template>
 
