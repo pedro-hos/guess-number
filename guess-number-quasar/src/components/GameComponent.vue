@@ -21,6 +21,7 @@
           bg-color="primary"
           v-if="col == '?'"
           v-model="number"
+          @keyup.enter="verifyValue"
         />
         <span v-if="col != '?'">{{ col }}</span>
       </div>
@@ -57,7 +58,7 @@
 import { ref, onMounted } from "vue";
 export default {
   name: "GameComponent",
-  emits: ["changelevel"],
+  emits: ["changelevel", "errorMessage"],
 
   setup(props, context) {
     const number = ref("");
@@ -78,7 +79,7 @@ export default {
           let index = lines.value[lines.value.length - 1].indexOf("?");
           lines.value[lines.value.length - 1][index] = number.value;
 
-          if (checkLevel()) {
+          if (verifyLevel()) {
             context.emit("changelevel");
           }
 
@@ -90,11 +91,11 @@ export default {
           buildLines();
         }
       } else {
-        alert("Egua");
+        context.emit("errorMessage");
       }
     };
 
-    const checkLevel = () => {
+    const verifyLevel = () => {
       return round == 1 || round == 3 || round == 7 ? true : false;
     };
 

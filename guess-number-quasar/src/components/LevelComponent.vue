@@ -20,10 +20,26 @@ export default {
   props: {
     level: {
       type: Number,
+      default: 1,
+    },
+    error: {
+      type: Boolean,
+      default: false,
     },
   },
   setup(props) {
-    const image = ref(`/src/assets/levels/level_${props.level}.gif`);
+    const image = ref("");
+
+    onMounted(() => {
+      console.log(props.error);
+
+      if (props.error) {
+        image.value = "/levels/error.gif";
+      } else {
+        image.value = `/levels/level_${props.level}.gif`;
+      }
+    });
+
     return { image };
   },
 };

@@ -5,7 +5,9 @@
         <component
           :is="current"
           v-bind:level="level"
+          v-bind:error="error"
           @changelevel="levelUp"
+          @errorMessage="showErrorMessage"
         ></component>
       </KeepAlive>
 
@@ -37,7 +39,6 @@
 import GameComponent from "components/GameComponent.vue";
 import LevelComponent from "components/LevelComponent.vue";
 import { ref } from "vue";
-import { useRouter } from "vue-router";
 
 export default {
   name: "GamePage",
@@ -49,7 +50,7 @@ export default {
   setup() {
     const current = ref("LevelComponent");
     const level = ref(1);
-    const router = useRouter();
+    const error = ref(false);
 
     const changeComponent = () => {
       current.value =
@@ -58,14 +59,22 @@ export default {
 
     const levelUp = () => {
       level.value++;
+      error.value = false;
+      changeComponent();
+    };
+
+    const showErrorMessage = () => {
+      error.value = true;
       changeComponent();
     };
 
     return {
       current,
       level,
+      error,
       changeComponent,
       levelUp,
+      showErrorMessage,
     };
   },
 };
