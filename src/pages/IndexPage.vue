@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex flex-center">
+  <q-page class="flex flex-center page">
     <div class="q-pa btn-box">
       <div class="row">
         <div class="col-auto">

@@ -1,5 +1,5 @@
 <template>
-  <q-page padding>
+  <q-page padding class="page q-ma-sm">
     <div color="">Creditos</div>
   </q-page>
 </template>

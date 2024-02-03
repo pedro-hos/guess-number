@@ -53,13 +53,13 @@ const menuList = [
     to: {path: '/', exact: true}
   },
   {
-    icon: 'send',
+    icon: 'sports_esports',
     label: 'Jogar',
     separator: true,
     to: {path: "/game", exact: true}
   },
   {
-    icon: 'delete',
+    icon: 'tips_and_updates',
     label: 'Créditos',
     separator: true,
     to: {path: "/creditos", exact: true}

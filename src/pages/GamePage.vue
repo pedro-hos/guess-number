@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <q-page class="page">
     <div class="q-pa">
       <KeepAlive exclude="LevelComponent">
         <component
