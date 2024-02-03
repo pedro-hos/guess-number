@@ -21,7 +21,7 @@
             </q-toolbar>
 
             <template v-for="(menuItem, index) in menuList" :key="index">
-              <q-item :to="menuItem.to" active="false">
+              <q-item :to="menuItem.to" :active="$route.path === menuItem.to.path">
                 <q-item-section avatar>
                   <q-icon :name="menuItem.icon" />
                 </q-item-section>
@@ -56,13 +56,13 @@ const menuList = [
     icon: 'sports_esports',
     label: 'Jogar',
     separator: true,
-    to: {path: "/game", exact: true}
+    to: {path: "/game", exact: false}
   },
   {
     icon: 'tips_and_updates',
     label: 'Créditos',
     separator: true,
-    to: {path: "/creditos", exact: true}
+    to: {path: "/creditos", exact: false}
   }
 ]
 
