@@ -1,0 +1,1 @@
+import{Q as e}from"./QPage.78e6c4fe.js";import{_ as t,t as o,u as a,v as r,I as s}from"./index.cc3d510b.js";import"./render.151eb740.js";const c={name:"CreditosPage"},d=s("div",{color:""},"Creditos",-1);function i(n,_,p,f,m,u){return o(),a(e,{padding:""},{default:r(()=>[d]),_:1})}var C=t(c,[["render",i]]);export{C as default};
