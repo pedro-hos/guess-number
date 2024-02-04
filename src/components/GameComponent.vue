@@ -29,7 +29,7 @@
       >
         <q-input
           input-class="text-center"
-          class="text-h4"
+          :class="($q.screen.lg || $q.screen.md  || $q.screen.xl ) ? 'text-h4': 'text-overline'"
           rounded
           filled
           color="teal"
