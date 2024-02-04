@@ -5,10 +5,10 @@
 
       <div class="row justify-center">
         <div class="col-5 text-center" style="margin-top: 10px; border: dashed #d5d656;">
-        <span class="text-h6">
-          Olá, eu sou o Luke, um dognauta! Preciso resgatar meu irmão Mike no planeta tamon Você pode me ajudar?
-        </span>
-      </div>
+          <span class="text-h6">
+            Olá, eu sou o Luke, um dognauta! Preciso resgatar meu irmão Mike no planeta tamon Você pode me ajudar?
+          </span>
+        </div>
       </div>
       <div class="row">
         <div class="col">
@@ -24,6 +24,7 @@
                   class="btn"
                   outline
                   rounded
+                  icon="sports_esports"
                   color="primary"
                   label="Jogar"
                   size="xl"
@@ -35,6 +36,7 @@
               <div class="col-auto">
                 <q-btn
                   class="btn"
+                  icon="tips_and_updates"
                   outline
                   rounded
                   color="primary"
@@ -46,7 +48,6 @@
             </div>
           </div>
 
-          <!--  -->
          </div>
         <div class="col">
           <q-img src="/images/game/luke.png"
@@ -57,7 +58,6 @@
         <div class="col">
           <q-img src="/images/background/sand_2.png"
           style="height: auto; max-width: 100%"/>
-
         </div>
       </div>
     </div>

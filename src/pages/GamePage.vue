@@ -1,5 +1,6 @@
 <template>
-  <q-page class="page">
+  <q-page class="q-pa-sm">
+
     <div class="q-pa">
       <KeepAlive exclude="LevelComponent">
         <component
@@ -8,10 +9,11 @@
           v-bind:error="error"
           @changelevel="levelUp"
           @errorMessage="showErrorMessage"
+          @changeComponent="changeComponent"
         ></component>
       </KeepAlive>
 
-      <q-btn
+      <!-- <q-btn
         v-if="current == 'LevelComponent' && level < 5"
         class="btn"
         outline
@@ -30,7 +32,7 @@
         label="Finalizar"
         size="xl"
         to="/"
-      />
+      /> -->
     </div>
   </q-page>
 </template>

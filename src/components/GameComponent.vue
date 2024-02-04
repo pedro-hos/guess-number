@@ -63,6 +63,7 @@ export default {
   setup(props, context) {
     const number = ref("");
     const lines = ref([]);
+    emits: ["level"];
 
     let colMin = 1;
     let colMax = colMin + 10;
@@ -129,7 +130,6 @@ export default {
       lines,
       verifyValue,
     };
-    emits: ["level"];
   },
 };
 </script>
