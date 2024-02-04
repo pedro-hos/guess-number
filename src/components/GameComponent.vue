@@ -1,8 +1,24 @@
 <template>
-  <div>
+
+    <audio autoplay loop ref="audio">
+      <source src="/audio/game_music.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="row" >
+      <div class="col-10">
+        <span :class="($q.screen.lg || $q.screen.md  || $q.screen.xl ) ? 'text-h5': 'text-overline'">
+          Fase: {{ level }}
+        </span>
+      </div>
+      <div class="col-2">
+        <q-btn round outline color="light" class="q-ma-xs" :icon="playIcon" @click="playPause"/>
+        <q-btn round outline color="light" class="q-ma-xs" :icon="muteIcon" @click="muteUnmute"/>
+      </div>
+    </div>
+    <hr>
     <div
       class="row justify-center"
-      style="margin-top: 10px"
+      style="margin-top: 20px"
       v-for="(line, rowIndex) in lines"
       :key="rowIndex"
     >
@@ -13,6 +29,7 @@
       >
         <q-input
           input-class="text-center"
+          class="text-h4"
           rounded
           filled
           color="teal"
@@ -23,7 +40,9 @@
           v-model="number"
           @keyup.enter="verifyValue"
         />
-        <span v-if="col != '?'">{{ col }}</span>
+        <span :class="($q.screen.lg || $q.screen.md  || $q.screen.xl ) ? 'text-h4': 'text-overline'" v-if="col != '?'">
+          {{ col }}
+        </span>
       </div>
     </div>
 
@@ -32,6 +51,7 @@
         <q-btn
           class="btn q-ma-sm"
           outline
+          :disable="number == ''"
           rounded
           color="positive"
           label="Confirmar"
@@ -39,31 +59,23 @@
           @click="verifyValue"
         />
       </div>
-      <div class="col-auto">
-        <q-btn
-          class="btn q-ma-sm"
-          outline
-          rounded
-          color="warning"
-          label="Resetar"
-          size="xl"
-          to="/"
-        />
-      </div>
     </div>
-  </div>
+    <hr>
 </template>
 
 <script>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, onUpdated } from "vue";
 export default {
   name: "GameComponent",
   emits: ["changelevel", "errorMessage"],
-
+  props: { level: Number },
   setup(props, context) {
     const number = ref("");
     const lines = ref([]);
-    emits: ["level"];
+    const audio = ref(null);
+    const playState = ref('play');
+
+    emits: ["changelevel"];
 
     let colMin = 1;
     let colMax = colMin + 10;
@@ -71,6 +83,29 @@ export default {
     let rowMax = 2;
     let round = 1;
     let randomNumber;
+
+    const playIcon = ref("play_arrow");
+    const muteIcon = ref("volume_up");
+
+    console.log(audio.value == null);
+
+    const playPause = () => {
+
+      if(playState.value == "play") {
+        playIcon.value = "pause";
+        audio.value.pause()
+        playState.value = "pause";
+      } else {
+        playIcon.value = "play_arrow";
+        audio.value.play();
+        playState.value = "play";
+      }
+    }
+
+    const muteUnmute = () => {
+      muteIcon.value = muteIcon.value == "volume_up" ? "volume_off" : "volume_up";
+      audio.value.muted = audio.value.muted ? false : true;
+    }
 
     const verifyValue = () => {
       if (number.value == randomNumber) {
@@ -92,6 +127,7 @@ export default {
           buildLines();
         }
       } else {
+        number.value = "";
         context.emit("errorMessage");
       }
     };
@@ -122,12 +158,24 @@ export default {
     };
 
     onMounted(() => {
+      audio.value.play();
       buildLines();
+    });
+
+    onUpdated(() => {
+      if(playState.value == "play") {
+        audio.value.play();
+      }
     });
 
     return {
       number,
       lines,
+      audio,
+      playIcon,
+      muteIcon,
+      muteUnmute,
+      playPause,
       verifyValue,
     };
   },

@@ -1,4 +1,9 @@
 <template>
+
+  <audio autoplay>
+    <source :src="audioSrc" type="audio/mpeg">
+  </audio>
+
   <div v-if="$q.screen.md || $q.screen.xl || $q.screen.lg">
     <div class="row justify-center" style="margin-top: 10px;">
       <div class="col-6 text-center" :style="[level == 5 ? 'border: dashed #4e7f1c;' : 'border: dashed #d5d656;', 'margin-left: 10px;']">
@@ -13,8 +18,8 @@
         <q-img :src="`/images/game/levels/${level}/left.png`"
         style="height: 280px; max-width: 300px"/>
       </div>
-      <div class="col" style="margin-top: 80px; margin-left: 250px;">
 
+      <div class="col" style="margin-top: 70px; margin-left: 250px;">
         <div class="btn-box">
           <div class="row">
             <div class="col">
@@ -45,12 +50,12 @@
        </div>
       <div class="col">
         <q-img :src="`/images/game/levels/${level}/right.png`"
-        style="height: 280px; max-width: 300px; margin-left: 80px;"/>
+        style="height: 280px; max-width: 300px;"/>
       </div>
     </div>
 
 
-    <div class="row" style="margin-top: 85px;">
+    <div class="row" style="margin-top: 50px;">
       <div class="col">
         <q-img :src="`/images/game/levels/${level}/footer.png`"
         style="height: auto; max-width: 100%"/>
@@ -115,6 +120,7 @@ export default {
   setup(props, context) {
 
     const text = ref("");
+    const audioSrc = ref("");
     const smallScreen = ref("");
 
     let levelMap = new Map();
@@ -131,7 +137,7 @@ export default {
 
     levelMap.set("3", {
       level: 3,
-      text: "Conseguimos! nossa missão agora é encontrar as coordenadas para o planeta tamon, onde o meu irmão mike está. Você me ajudar?"
+      text: "Conseguimos! nossa missão agora é encontrar as coordenadas para o planeta tamon, onde o meu irmão mike está. Você poderia me ajudar?"
     });
 
     levelMap.set("4", {
@@ -161,13 +167,15 @@ export default {
       if (props.error) {
         text.value = levelObject.value.get("error").text;
         smallScreen.value = `images/game/levels/error.png`;
+        audioSrc.value = "/audio/error.mp3";
       } else {
         text.value = levelObject.value.get("" + props.level).text;
+        audioSrc.value = `/audio/level_${props.level}.mp3`;
         smallScreen.value = `images/game/levels/${props.level}/level_${props.level}.png`;
       }
     });
 
-    return { levelObject, text, smallScreen, changeComponent };
+    return { levelObject, text, smallScreen, audioSrc, changeComponent };
   },
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <q-page class="q-pa-sm">
 
-    <audio ref="audio">
+    <audio autoplay ref="audio">
       <source src="/audio/intro.mp3" type="audio/mpeg">
     </audio>
 
@@ -50,14 +50,7 @@
                 />
               </div>
             </div>
-            <div class="row" style="margin-left: 50px;">
-              <div class="col">
-                <q-btn round outline color="light" class="q-ma-xs" :icon="playIcon" @click="playPause"/>
-              </div>
-              <div class="col">
-                <q-btn round outline color="light" class="q-ma-xs" :icon="muteIcon" @click="muteUnmute"/>
-              </div>
-            </div>
+
           </div>
 
          </div>
@@ -109,14 +102,6 @@
                 />
               </div>
             </div>
-            <div class="row" style="margin-left: 50px;">
-              <div class="col">
-                <q-btn round outline color="light" class="q-ma-xs" :icon="playIcon" @click="playPause"/>
-              </div>
-              <div class="col">
-                <q-btn round outline color="light" class="q-ma-xs" :icon="muteIcon" @click="muteUnmute"/>
-              </div>
-            </div>
     </div>
   </div>
 </div>
@@ -125,40 +110,35 @@
 </template>
 
 <script>
-import { defineComponent, ref, onMounted } from "vue";
+import { defineComponent, ref } from "vue";
 
 export default defineComponent({
   name: "IndexPage",
   setup() {
 
-    const audio = ref(null);
-    const playIcon = ref("play_arrow");
-    const muteIcon = ref("volume_up");
-    let playState = 'play';
+    // const audio = ref(null);
+    // const playIcon = ref("play_arrow");
+    // const muteIcon = ref("volume_up");
+    // let playState = 'play';
 
-    const playPause = () => {
-      if(playState == "play") {
-        playIcon.value = "pause";
-        audio.value.pause()
-        playState = "pause";
-      } else {
-        playIcon.value = "play_arrow";
-        audio.value.play()
-        playState = "play";
-      }
-    }
+    // const playPause = () => {
+    //   if(playState == "play") {
+    //     playIcon.value = "pause";
+    //     audio.value.pause()
+    //     playState = "pause";
+    //   } else {
+    //     playIcon.value = "play_arrow";
+    //     audio.value.play()
+    //     playState = "play";
+    //   }
+    // }
 
-    const muteUnmute = () => {
-      muteIcon.value = muteIcon.value == "volume_up" ? "volume_off" : "volume_up";
-      audio.value.muted = audio.value.muted ? false : true;
-    }
+    // const muteUnmute = () => {
+    //   muteIcon.value = muteIcon.value == "volume_up" ? "volume_off" : "volume_up";
+    //   audio.value.muted = audio.value.muted ? false : true;
+    // }
 
-    onMounted(()=>{
-      console.log(audio.value)
-      audio.value.play()
-    });
-
-    return {audio, muteIcon, playIcon, playPause, muteUnmute}
+    // return {audio, muteIcon, playIcon, playPause, muteUnmute}
   }
 });
 </script>
