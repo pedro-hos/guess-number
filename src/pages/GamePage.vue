@@ -1,5 +1,5 @@
 <template>
-  <q-page class="q-pa-sm" :style="[level == 5 ? 'background-color: #03A2B7' : '']">
+  <q-page class="q-pa-sm" :style="[(level == 5) ? 'background-color: #03A2B7' : '']">
 
     <div class="q-pa">
       <KeepAlive exclude="LevelComponent">

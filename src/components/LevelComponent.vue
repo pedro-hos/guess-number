@@ -59,7 +59,41 @@
 
   </div>
 
-<div v-if="$q.screen.sm || $q.screen.xs"></div>
+  <div v-if="$q.screen.sm || $q.screen.xs">
+
+    <div class="row justify-center items-center content-center">
+      <q-img :src="smallScreen"
+      style="height: 380px; max-width: 300px"/>
+    </div>
+
+    <div class="row justify-center items-center content-center">
+          <div class="btn-box">
+            <div class="row">
+              <div class="col">
+                <q-btn v-if="level < 5"
+                class="btn"
+                outline
+                rounded
+                color="primary"
+                label="Vamos Nessa"
+                size="lg"
+                @click="changeComponent"
+              />
+              <q-btn
+                v-if="level == 5"
+                class="btn"
+                outline
+                rounded
+                color="primary"
+                label="Finalizar"
+                size="xl"
+                to="/"
+              />
+            </div>
+        </div>
+      </div>
+  </div>
+</div>
 
 </template>
 
@@ -81,6 +115,7 @@ export default {
   setup(props, context) {
 
     const text = ref("");
+    const smallScreen = ref("");
 
     let levelMap = new Map();
 
@@ -96,7 +131,7 @@ export default {
 
     levelMap.set("3", {
       level: 3,
-      text: "Conseguimos! nossa missão agora é encontrar as coordenadas para o planeta tamon, onde o meu irmão mike está. Você me ajuda"
+      text: "Conseguimos! nossa missão agora é encontrar as coordenadas para o planeta tamon, onde o meu irmão mike está. Você me ajudar?"
     });
 
     levelMap.set("4", {
@@ -125,12 +160,14 @@ export default {
 
       if (props.error) {
         text.value = levelObject.value.get("error").text;
+        smallScreen.value = `images/game/levels/error.png`;
       } else {
         text.value = levelObject.value.get("" + props.level).text;
+        smallScreen.value = `images/game/levels/${props.level}/level_${props.level}.png`;
       }
     });
 
-    return { levelObject, text, changeComponent };
+    return { levelObject, text, smallScreen, changeComponent };
   },
 };
 </script>
