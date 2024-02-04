@@ -136,12 +136,12 @@ export default {
 
     levelMap.set("4", {
       level: 4,
-      text: "maravilha, encontramos o mike! agora precisamos voltar para o planeta terra. Você pode nos ajudar a encontrar as coordenadas?."
+      text: "maravilha, encontramos o mike! agora precisamos voltar para o planeta terra. Você pode nos ajudar a encontrar as coordenadas?"
     });
 
     levelMap.set("5", {
       level: 5,
-      text: "muito obrigado! agora estamos sãos e salvos em casa"
+      text: "muito obrigado! agora estamos sãos e salvos em casa."
     });
 
     levelMap.set("error", {

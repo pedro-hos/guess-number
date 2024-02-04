@@ -1,12 +1,16 @@
 <template>
   <q-page class="q-pa-sm">
 
+    <audio ref="audio">
+      <source src="/audio/intro.mp3" type="audio/mpeg">
+    </audio>
+
     <div v-if="$q.screen.md || $q.screen.xl || $q.screen.lg">
 
       <div class="row justify-center">
         <div class="col-5 text-center" style="margin-top: 10px; border: dashed #d5d656;">
           <span class="text-h6">
-            Olá, eu sou o Luke, um dognauta! Preciso resgatar meu irmão Mike no planeta tamon Você pode me ajudar?
+            Olá, eu sou o Luke, um dognauta! Preciso resgatar meu irmão Mike no planeta tamon Você poderia me ajudar?
           </span>
         </div>
       </div>
@@ -44,6 +48,14 @@
                   size="xl"
                   to="/creditos"
                 />
+              </div>
+            </div>
+            <div class="row" style="margin-left: 50px;">
+              <div class="col">
+                <q-btn round outline color="light" class="q-ma-xs" :icon="playIcon" @click="playPause"/>
+              </div>
+              <div class="col">
+                <q-btn round outline color="light" class="q-ma-xs" :icon="muteIcon" @click="muteUnmute"/>
               </div>
             </div>
           </div>
@@ -97,49 +109,56 @@
                 />
               </div>
             </div>
+            <div class="row" style="margin-left: 50px;">
+              <div class="col">
+                <q-btn round outline color="light" class="q-ma-xs" :icon="playIcon" @click="playPause"/>
+              </div>
+              <div class="col">
+                <q-btn round outline color="light" class="q-ma-xs" :icon="muteIcon" @click="muteUnmute"/>
+              </div>
+            </div>
     </div>
   </div>
-      <!-- <div class="q-pa-md btn-box">
-
-        <div class="row">
-          <div class="col-auto">
-            <q-btn
-              class="btn"
-              outline
-              rounded
-              color="primary"
-              label="Jogar"
-              size="xl"
-              to="/game"
-            />
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-auto">
-            <q-btn
-              class="btn"
-              outline
-              rounded
-              color="primary"
-              label="Créditos"
-              size="xl"
-              to="/creditos"
-            />
-          </div>
-        </div>
-      </div> -->
-
-    </div>
+</div>
 
   </q-page>
 </template>
 
 <script>
-import { defineComponent } from "vue";
-import { useQuasar } from 'quasar'
+import { defineComponent, ref, onMounted } from "vue";
 
 export default defineComponent({
   name: "IndexPage",
-  setup() { return {} }
+  setup() {
+
+    const audio = ref(null);
+    const playIcon = ref("play_arrow");
+    const muteIcon = ref("volume_up");
+    let playState = 'play';
+
+    const playPause = () => {
+      if(playState == "play") {
+        playIcon.value = "pause";
+        audio.value.pause()
+        playState = "pause";
+      } else {
+        playIcon.value = "play_arrow";
+        audio.value.play()
+        playState = "play";
+      }
+    }
+
+    const muteUnmute = () => {
+      muteIcon.value = muteIcon.value == "volume_up" ? "volume_off" : "volume_up";
+      audio.value.muted = audio.value.muted ? false : true;
+    }
+
+    onMounted(()=>{
+      console.log(audio.value)
+      audio.value.play()
+    });
+
+    return {audio, muteIcon, playIcon, playPause, muteUnmute}
+  }
 });
 </script>
