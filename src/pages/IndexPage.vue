@@ -54,7 +54,7 @@
           style="height: 280px; max-width: 200px; margin-left: 80px;"/>
         </div>
       </div>
-      <div class="row" style="margin-top: 40px;">
+      <div class="row" style="margin-top: 45px;">
         <div class="col">
           <q-img src="/images/background/sand_2.png"
           style="height: auto; max-width: 100%"/>

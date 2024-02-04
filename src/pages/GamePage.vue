@@ -1,5 +1,5 @@
 <template>
-  <q-page class="q-pa-sm">
+  <q-page class="q-pa-sm" :style="[level == 5 ? 'background-color: #03A2B7' : '']">
 
     <div class="q-pa">
       <KeepAlive exclude="LevelComponent">
@@ -12,27 +12,6 @@
           @changeComponent="changeComponent"
         ></component>
       </KeepAlive>
-
-      <!-- <q-btn
-        v-if="current == 'LevelComponent' && level < 5"
-        class="btn"
-        outline
-        rounded
-        color="primary"
-        label="Vamos nessa"
-        size="xl"
-        @click="changeComponent"
-      />
-      <q-btn
-        v-if="current == 'LevelComponent' && level == 5"
-        class="btn"
-        outline
-        rounded
-        color="primary"
-        label="Finalizar"
-        size="xl"
-        to="/"
-      /> -->
     </div>
   </q-page>
 </template>

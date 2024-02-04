@@ -1,9 +1,8 @@
 <template>
-<div :style="level == 5 ? 'background-color: #BAF7FFs;' : '' ">
   <div v-if="$q.screen.md || $q.screen.xl || $q.screen.lg">
     <div class="row justify-center" style="margin-top: 10px;">
-      <div class="col-6 text-center" style=" border: dashed #d5d656; margin-left: 10px;">
-        <span class="text-h6">
+      <div class="col-6 text-center" :style="[level == 5 ? 'border: dashed #4e7f1c;' : 'border: dashed #d5d656;', 'margin-left: 10px;']">
+        <span class="text-h6" :style="[level == 5 ?  'color: black;' : '']">
           {{text}}
         </span>
       </div>
@@ -19,7 +18,7 @@
         <div class="btn-box">
           <div class="row">
             <div class="col">
-              <q-btn
+              <q-btn v-if="level < 5"
                 class="btn"
                 outline
                 rounded
@@ -27,6 +26,16 @@
                 label="Vamos Nessa"
                 size="lg"
                 @click="changeComponent"
+              />
+              <q-btn
+                v-if="level == 5"
+                class="btn"
+                outline
+                rounded
+                color="primary"
+                label="Finalizar"
+                size="xl"
+                to="/"
               />
             </div>
           </div>
@@ -41,7 +50,7 @@
     </div>
 
 
-    <div class="row" style="margin-top: 40px;">
+    <div class="row" style="margin-top: 85px;">
       <div class="col">
         <q-img :src="`/images/game/levels/${level}/footer.png`"
         style="height: auto; max-width: 100%"/>
@@ -49,9 +58,8 @@
     </div>
 
   </div>
-</div>
 
-  <div v-if="$q.screen.sm || $q.screen.xs"></div>
+<div v-if="$q.screen.sm || $q.screen.xs"></div>
 
 </template>
 
@@ -88,7 +96,7 @@ export default {
 
     levelMap.set("3", {
       level: 3,
-      text: "Conseguimos! nossa missão agora é encontrar as coordenadas para o planeta tamon, onde o meu irmão mike está."
+      text: "Conseguimos! nossa missão agora é encontrar as coordenadas para o planeta tamon, onde o meu irmão mike está. Você me ajuda"
     });
 
     levelMap.set("4", {
