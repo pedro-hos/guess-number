@@ -1,5 +1,5 @@
 <template>
-
+<div :style="level == 5 ? 'background-color: #BAF7FFs;' : '' ">
   <div v-if="$q.screen.md || $q.screen.xl || $q.screen.lg">
     <div class="row justify-center" style="margin-top: 10px;">
       <div class="col-6 text-center" style=" border: dashed #d5d656; margin-left: 10px;">
@@ -36,7 +36,7 @@
        </div>
       <div class="col">
         <q-img :src="`/images/game/levels/${level}/right.png`"
-        style="height: 280px; max-width: 200px; margin-left: 80px;"/>
+        style="height: 280px; max-width: 300px; margin-left: 80px;"/>
       </div>
     </div>
 
@@ -49,6 +49,7 @@
     </div>
 
   </div>
+</div>
 
   <div v-if="$q.screen.sm || $q.screen.xs"></div>
 
