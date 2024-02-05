@@ -1,6 +1,6 @@
 <template>
 
-    <audio autoplay loop ref="audio">
+    <audio loop ref="audio">
       <source src="/audio/game_music.mp3" type="audio/mpeg">
     </audio>
 
