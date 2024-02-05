@@ -1,7 +1,7 @@
 <template>
   <q-page class="q-pa-sm">
 
-    <audio autoplay ref="audio">
+    <audio autoplay>
       <source src="/audio/intro.mp3" type="audio/mpeg">
     </audio>
 
