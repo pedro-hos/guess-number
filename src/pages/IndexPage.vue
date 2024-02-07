@@ -114,7 +114,7 @@ import { defineComponent, ref } from "vue";
 
 export default defineComponent({
   name: "IndexPage",
-  setup() {
+  //setup() {
 
     // const audio = ref(null);
     // const playIcon = ref("play_arrow");
@@ -139,6 +139,6 @@ export default defineComponent({
     // }
 
     // return {audio, muteIcon, playIcon, playPause, muteUnmute}
-  }
+  //}
 });
 </script>
