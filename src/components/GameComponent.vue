@@ -1,5 +1,22 @@
 <template>
 
+    <q-dialog v-model="alert" v-if="$q.platform.is.mobile">
+      <q-card class="bg-primary text-white">
+        <q-card-section>
+          <div class="text-h6">Dica!</div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none">
+          <p>Para uma melhor experiência, jogue com o aparelho na horizontal.</p>
+          <q-img src="images/cel_orientation.png" style="width: 100px;"/>
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn flat label="OK" color="white" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+
     <audio loop ref="audio">
       <source src="/audio/game_music.mp3" type="audio/mpeg">
     </audio>
@@ -75,6 +92,7 @@ export default {
     const lines = ref([]);
     const audio = ref(null);
     const playState = ref('play');
+    const alert = ref(true);
 
     emits: ["changelevel"];
 
@@ -176,6 +194,7 @@ export default {
       audio,
       playIcon,
       muteIcon,
+      alert,
       muteUnmute,
       playPause,
       verifyValue,
