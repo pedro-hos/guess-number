@@ -6,7 +6,7 @@
 
     <div class="row" >
       <div class="col-10">
-        <span :class="($q.screen.lg || $q.screen.md  || $q.screen.xl ) ? 'text-h5': 'text-overline'">
+        <span :class="($q.screen.lg || $q.screen.md  || $q.screen.xl ) ? 'text-h5': 'text-h6'">
           Fase: {{ level }}
         </span>
       </div>
@@ -25,22 +25,23 @@
       <div
         v-for="(col, colIndex) in line"
         :key="colIndex"
-        class="text-center col-1"
+        class="text-center col"
       >
         <q-input
-          input-class="text-center"
-          :class="($q.screen.lg || $q.screen.md  || $q.screen.xl ) ? 'text-h4': 'text-overline'"
-          rounded
-          filled
-          color="teal"
+          autofocus
           dense
+          :outlined="($q.screen.lg || $q.screen.md  || $q.screen.xl )"
+          input-class="text-center"
+          :class="($q.screen.lg || $q.screen.md  || $q.screen.xl ) ? 'text-h4': 'text-subtitle1'"
+          color="primary"
           type="number"
-          bg-color="primary"
+          bg-color="white"
           v-if="col == '?'"
-          v-model="number"
+          v-model.number="number"
+          maxlength="2"
           @keyup.enter="verifyValue"
         />
-        <span :class="($q.screen.lg || $q.screen.md  || $q.screen.xl ) ? 'text-h4': 'text-overline'" v-if="col != '?'">
+        <span :class="($q.screen.lg || $q.screen.md  || $q.screen.xl ) ? 'text-h4': 'text-subtitle1'" v-if="col != '?'">
           {{ col }}
         </span>
       </div>
