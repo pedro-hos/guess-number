@@ -160,6 +160,7 @@ export default {
 
     onMounted(() => {
       audio.value.play();
+      audio.value.volume = 0.10;
       buildLines();
     });
 
