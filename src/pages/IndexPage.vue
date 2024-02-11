@@ -10,7 +10,7 @@
       <div class="row justify-center">
         <div class="col-5 text-center" style="margin-top: 10px; border: dashed #d5d656;">
           <span class="text-h6">
-            Olá, eu sou o Luke, um dognauta! Preciso resgatar meu irmão Mike no planeta tamon Você poderia me ajudar?
+            Olá, eu sou o Luke, um dognauta! Preciso resgatar meu irmão Mike no planeta tamon. Você poderia me ajudar a descobrir os números que estão faltando?
           </span>
         </div>
       </div>
