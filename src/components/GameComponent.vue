@@ -82,17 +82,21 @@
 </template>
 
 <script>
-import { ref, onMounted, onUpdated } from "vue";
+import { ref, onMounted, onUpdated, watch } from "vue";
+import { useQuasar } from 'quasar'
+
 export default {
   name: "GameComponent",
   emits: ["changelevel", "errorMessage"],
   props: { level: Number },
+
   setup(props, context) {
     const number = ref("");
     const lines = ref([]);
     const audio = ref(null);
     const playState = ref('play');
     const alert = ref(true);
+    const $q = useQuasar()
 
     emits: ["changelevel"];
 
@@ -106,7 +110,13 @@ export default {
     const playIcon = ref("play_arrow");
     const muteIcon = ref("volume_up");
 
-    console.log(audio.value == null);
+    watch(() => $q.appVisible, val => {
+      if(val && playState.value == "play") {
+        audio.value.play();
+      } else {
+        audio.value.pause();
+      }
+    })
 
     const playPause = () => {
 
