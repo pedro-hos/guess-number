@@ -21,7 +21,13 @@
       "android"
     ],
     "plugins": {
-      "cordova-plugin-splashscreen": {}
+      "cordova-plugin-splashscreen": {},
+      "cordova-plugin-qrscanner-androidx": {},
+      "cordova-plugin-androidx-adapter": {}
     }
+  },
+  "dependencies": {
+    "cordova-plugin-androidx-adapter": "1.1.3",
+    "cordova-plugin-qrscanner-androidx": "3.0.6"
   }
 }
